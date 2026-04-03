@@ -1,4 +1,6 @@
-import { Ship,Gameboard,Player } from "../index.js";
+import { Gameboard } from "../gameBoard.js";
+import { Ship } from "../Ship.js";
+import { Player } from "../Player.js";
 //ship
 test('take a hit bih',()=>{
     expect(Ship(5).hit()).toBe(1);
