@@ -26,13 +26,19 @@ function Gameboard() {
     function allShipsSunk() {
         return ships.every(obj => obj.ship.isSunk());
     }
+    function reset() {
+        ships = [];
+        missedAttacks = [];
+        attackedCoords = [];
+    }
     return {
         placeShip,
         receiveAttack,
         allShipsSunk,
         missedAttacks,
         attackedCoords,
-        ships
+        ships,
+        reset
     };
 }
 export{Gameboard}

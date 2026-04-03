@@ -1,5 +1,5 @@
 import "./styles/styles.css";
-import GameController from './gameController';
+import {GameController} from './gameController';
 import { init } from './dom';
 
 document.addEventListener('DOMContentLoaded', () => {

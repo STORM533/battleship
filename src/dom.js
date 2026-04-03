@@ -14,7 +14,6 @@ function wasAttacked(board, x, y) {
 }
 
 function renderBoard(board, container, isEnemy = false) {
-    console.log(board);
     container.innerHTML = '';
 
     for (let x = 0; x < 10; x++) {
@@ -60,7 +59,7 @@ function init(gameController) {
         throw new Error('Missing DOM containers');
     }
 
-    controller.setupGame();
+    controller.randomizeShips();
     render();
 }
 
@@ -80,5 +79,16 @@ function render() {
     renderBoard(controller.player.gameboard, playerContainer);
     renderBoard(controller.computer.gameboard, enemyContainer, true);
 }
+document.querySelector('#randomBtn').onclick = () => {
+    controller.randomizeShips();
+    render();
+};
 
+document.querySelector('#startBtn').onclick = () => {
+    statusDiv.textContent = "Game Started!";
+};
+
+document.querySelector('#resetBtn').onclick = () => {
+    location.reload();
+};
 export { init };
