@@ -30,7 +30,9 @@ function Gameboard() {
         placeShip,
         receiveAttack,
         allShipsSunk,
-        missedAttacks
+        missedAttacks,
+        attackedCoords,
+        ships
     };
 }
 export{Gameboard}
