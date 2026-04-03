@@ -15,14 +15,16 @@ function wasAttacked(board, x, y) {
 
 function renderBoard(board, container, isEnemy = false) {
     container.innerHTML = '';
-
+    
     for (let x = 0; x < 10; x++) {
         for (let y = 0; y < 10; y++) {
             const cell = document.createElement('div');
             cell.classList.add('cell');
             cell.dataset.x = x;
             cell.dataset.y = y;
-
+            if (isEnemy && !controller.isGameOver()) {
+                cell.onclick = () => handleAttack([x, y]);
+            }           
             // MISS
             if (board.missedAttacks.some(c => c[0] === x && c[1] === y)) {
                 cell.classList.add('miss');
@@ -64,12 +66,22 @@ function init(gameController) {
 }
 
 function handleAttack(coords) {
-    controller.playerAttack(coords);
+    if (controller.isGameOver()) return;
 
-    if (!controller.isGameOver()) {
-        controller.computerAttack();
+    let result = controller.playerAttack(coords);
+
+    if (result === 'player wins') {
+        statusDiv.textContent = "🔥 You Win!";
+        render();
+        return;
+    }
+
+    controller.computerAttack();
+
+    if (controller.isGameOver()) {
+        statusDiv.textContent = "💀 Computer Wins!";
     } else {
-        statusDiv.textContent = "Game Over";
+        statusDiv.textContent = `Attack: [${coords}]`;
     }
 
     render();
