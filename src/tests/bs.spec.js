@@ -1,4 +1,4 @@
-import { Ship,Gameboard } from "../index.js";
+import { Ship,Gameboard,Player } from "../index.js";
 //ship
 test('take a hit bih',()=>{
     expect(Ship(5).hit()).toBe(1);
@@ -59,4 +59,28 @@ test('same coordinate attack does not double hit ship', () => {
     board.receiveAttack([0,0]); // duplicate
 
     expect(ship.isSunk()).toBe(false);
+});
+//player
+test('player has a gameboard', () => {
+    const player = Player();
+    expect(player.gameboard).toBeDefined();
+});
+test('player can attack opponent board', () => {
+    const p1 = Player();
+    const p2 = Player();
+
+    const ship = Ship(1);
+    p2.gameboard.placeShip(ship, [[0,0]]);
+
+    p1.attack(p2, [0,0]);
+
+    expect(ship.isSunk()).toBe(true);
+});
+test('computer can make random attack', () => {
+    const computer = Player('computer');
+    const opponent = Player();
+
+    computer.randomAttack(opponent);
+
+    expect(opponent.gameboard.missedAttacks.length >= 0).toBe(true);
 });
